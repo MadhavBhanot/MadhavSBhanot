@@ -1,40 +1,18 @@
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import type { PointerEvent, ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { FEATURED, PROJECTS, type Shot } from "../data";
 import { BrowserWindow } from "./BrowserWindow";
 import { SectionHeader } from "./SectionHeader";
 
-/** Thumbnail with the blurred-screenshot ambient glow and a window that tilts toward the pointer. */
-function Thumbnail({ shot, index, size, win, children }: {
-  shot: Shot; index: string; size: "lg" | "sm"; win: { left: number; top: number }; children?: ReactNode;
-}) {
-  const px = useMotionValue(0);
-  const py = useMotionValue(0);
-  const cfg = { stiffness: 150, damping: 18 };
-  const rotateY = useSpring(useTransform(px, [-0.5, 0.5], [-7, 7]), cfg);
-  const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [6, -6]), cfg);
-  const glowX = useSpring(useTransform(px, [-0.5, 0.5], [-24, 24]), cfg);
-  const glowY = useSpring(useTransform(py, [-0.5, 0.5], [-18, 18]), cfg);
-
-  const move = (e: PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType !== "mouse") return;
-    const r = e.currentTarget.getBoundingClientRect();
-    px.set((e.clientX - r.left) / r.width - 0.5);
-    py.set((e.clientY - r.top) / r.height - 0.5);
-  };
-
+/** Thumbnail with the blurred-screenshot ambient glow behind a browser window. */
+function Thumbnail({ shot, index, size, win }: { shot: Shot; index: string; size: "lg" | "sm"; win: { left: number; top: number } }) {
   return (
-    <div className={`thumb thumb--${size}`} onPointerMove={move} onPointerLeave={() => { px.set(0); py.set(0); }}>
-      <motion.img className="thumb-ambient" src={shot.ambient} alt="" style={{ x: glowX, y: glowY }} />
+    <div className={`thumb thumb--${size}`}>
+      <img className="thumb-ambient" src={shot.ambient} alt="" />
       <div className="thumb-shade" />
       <span className="thumb-index" data-speed="0.92">{index}</span>
       <div className="thumb-window" style={{ left: win.left, top: win.top }} data-parallax>
-        <motion.div style={{ rotateX, rotateY, transformPerspective: 900 }} className="thumb-tilt">
-          <BrowserWindow shot={shot} size={size} />
-        </motion.div>
+        <BrowserWindow shot={shot} size={size} />
       </div>
-      {children}
     </div>
   );
 }

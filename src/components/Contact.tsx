@@ -3,11 +3,9 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, ArrowUp, Check } from "lucide-react";
 import { EMAIL, SOCIALS } from "../data";
 import { scrollToTarget } from "../lib/scroll";
-import { Magnetic } from "./Magnetic";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
-  const [flying, setFlying] = useState(false);
 
   const copy = async () => {
     try {
@@ -30,38 +28,28 @@ export function Contact() {
             <span className="doodle-text" style={{ rotate: "-6deg", left: 0, top: 0, fontSize: 32, color: "#141312" }}>say hi!</span>
             <img src="/assets/doodle-sayhi-arrow.svg" alt="" data-draw style={{ left: 70, top: 18 }} />
           </div>
-          <Magnetic strength={0.2}>
             <button
               className="email-btn"
               onClick={copy}
-              onPointerEnter={() => setFlying(true)}
-              onPointerLeave={() => setFlying(false)}
               aria-label={`Copy email address ${EMAIL}`}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {copied ? (
-                  <motion.span key="done" className="email-btn-inner" initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }}>
+                  <motion.span key="done" className="email-btn-inner" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
                     Copied to clipboard <Check size={17} strokeWidth={2} />
                   </motion.span>
                 ) : (
-                  <motion.span key="mail" className="email-btn-inner" initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }}>
-                    {EMAIL} <ArrowRight size={17} strokeWidth={2} className="btn-icon" />
+                  <motion.span key="mail" className="email-btn-inner" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+                    {EMAIL} <ArrowRight size={17} strokeWidth={2} aria-hidden />
                   </motion.span>
                 )}
               </AnimatePresence>
             </button>
             <span className="sr-only" aria-live="polite">{copied ? "Email address copied" : ""}</span>
-          </Magnetic>
         </div>
 
         <img src="/assets/doodle-plane-trail.svg" alt="" className="doodle plane-trail" data-draw />
-        <motion.img
-          src="/assets/doodle-plane.svg"
-          alt=""
-          className="doodle plane"
-          animate={flying ? { x: 26, y: -22, rotate: -8 } : { x: 0, y: [0, -6, 0], rotate: 0 }}
-          transition={flying ? { type: "spring", stiffness: 200, damping: 14 } : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <img src="/assets/doodle-plane.svg" alt="" className="doodle plane" />
       </div>
 
       <footer className="footer">

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { NAV } from "../data";
-import { Magnetic } from "./Magnetic";
 
 export function Nav() {
   const { scrollY, scrollYProgress } = useScroll();
@@ -10,7 +9,6 @@ export function Nav() {
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
-  const [hovered, setHovered] = useState<string | null>(null);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -27,8 +25,6 @@ export function Nav() {
     return () => io.disconnect();
   }, []);
 
-  const pill = hovered ?? active;
-
   return (
     <>
       <motion.div className="scroll-progress" style={{ scaleX: progress }} aria-hidden />
@@ -40,21 +36,19 @@ export function Nav() {
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <a href="#top" className="nav-logo" aria-label="Madhav — back to top">MADHAV</a>
-        <nav className="nav-links" onPointerLeave={() => setHovered(null)} aria-label="Primary">
+        <nav className="nav-links" aria-label="Primary">
           {NAV.map(({ label, href }) => (
-            <a key={href} href={href} onPointerEnter={() => setHovered(href)} className={active === href ? "is-active" : ""}>
-              {pill === href && (
+            <a key={href} href={href} className={active === href ? "is-active" : ""} aria-current={active === href ? "location" : undefined}>
+              {active === href && (
                 <motion.span layoutId="nav-pill" className="nav-pill" transition={{ type: "spring", stiffness: 380, damping: 32 }} />
               )}
               <span>{label}</span>
             </a>
           ))}
         </nav>
-        <Magnetic strength={0.25}>
-          <a href="#contact" className="btn btn--solid btn--nav">
-            Contact <ArrowRight size={16} strokeWidth={1.8} className="btn-icon" />
-          </a>
-        </Magnetic>
+        <a href="#contact" className="btn btn--solid btn--nav">
+          Contact <ArrowRight size={16} strokeWidth={1.8} aria-hidden />
+        </a>
       </motion.header>
     </>
   );
