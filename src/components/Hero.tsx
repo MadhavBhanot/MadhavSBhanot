@@ -1,5 +1,6 @@
-import type { PointerEvent } from "react";
+import { useRef, useState, type MouseEvent, type PointerEvent } from "react";
 import { ArrowDown, Download } from "lucide-react";
+import { Splash } from "./Splash";
 
 /** Portrait drifts toward the pointer; CSS `translate` + transition does the easing. */
 const drift = (e: PointerEvent<HTMLElement>) => {
@@ -14,10 +15,20 @@ const settle = (e: PointerEvent<HTMLElement>) => {
 };
 
 export function Hero() {
+  // Easter egg: 5 quick taps on the name (each within 600ms of the last) opens the hidden page.
+  const taps = useRef({ n: 0, t: 0 });
+  const [splash, setSplash] = useState<{ x: number; y: number } | null>(null);
+  const tap = (e: MouseEvent) => {
+    const k = taps.current;
+    k.n = e.timeStamp - k.t < 600 ? k.n + 1 : 1;
+    k.t = e.timeStamp;
+    if (k.n === 5) { k.n = 0; setSplash({ x: e.clientX, y: e.clientY }); }
+  };
+
   return (
     <section className="hero" id="top" onPointerMove={drift} onPointerLeave={settle}>
       <div className="hero-stage">
-        <h1 className="hero-name" data-hero="name" aria-label="Madhav">MADHAV</h1>
+        <h1 className="hero-name" data-hero="name" aria-label="Madhav" onClick={tap}>MADHAV</h1>
         <div className="hero-portrait" data-hero="portrait">
           <img src="/assets/sketch.webp" alt="Line sketch of Madhav" draggable={false} />
         </div>
@@ -50,6 +61,7 @@ export function Hero() {
         </div>
       </div>
       <div className="rule hero-rule" data-rule />
+      {splash && <Splash {...splash} onClose={() => setSplash(null)} />}
     </section>
   );
 }

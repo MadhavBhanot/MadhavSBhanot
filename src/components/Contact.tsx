@@ -63,7 +63,7 @@ export function Contact() {
         </ul>
       </footer>
       <div className="signoff">
-        <p>DESIGNED &amp; BUILT BY MADHAV</p>
+        <p>PSST — KNOCK FIVE TIMES ON THE NAME UP TOP</p>
         <button className="link-underline back-top" onClick={() => scrollToTarget(0)}>
           BACK TO TOP <ArrowUp size={12} strokeWidth={2} />
         </button>

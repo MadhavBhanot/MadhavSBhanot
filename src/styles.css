@@ -404,6 +404,28 @@ body::after {
 }
 .signature p > div { background: inherit; -webkit-background-clip: text; background-clip: text; padding-right: 0.08em; margin-right: -0.08em; }
 
+/* ---------- Easter egg: 5 taps on the hero name ---------- */
+.hero-name { user-select: none; }
+.splash { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--ink); overflow: hidden; }
+.splash::backdrop { background: transparent; }
+.splash-ink { position: absolute; inset: 0; width: 100%; height: 100%; }
+.splash-page { position: absolute; inset: 0; opacity: 0; }
+.splash-back {
+  position: absolute; top: 24px; left: 24px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 999px;
+  border: 1px solid rgba(20, 19, 18, 0.35);
+  font: 500 14px/1 var(--sans); color: var(--ink);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.splash-back:hover { background: rgba(20, 19, 18, 0.08); border-color: rgba(20, 19, 18, 0.6); }
+.splash :focus-visible { outline-color: var(--ink); }
+/* Top-layer dialog sits above the custom cursor, so use the native one inside it and freeze the page behind. */
+html:has(.splash[open]) { overflow: hidden; }
+html:has(.splash[open]) .cursor { visibility: hidden !important; }
+.has-cursor .splash, .has-cursor .splash * { cursor: auto !important; }
+.has-cursor .splash button { cursor: pointer !important; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1280px) {
   .featured { gap: 40px; padding-right: 40px; }

@@ -1,0 +1,60 @@
+/* ---------- Hidden poster: NFS "Most Wanted" hero ---------- */
+/* One continuous sheet of paper behind everything; the blend-mode layers mix against it. */
+.wanted {
+  position: absolute; inset: 0; overflow: hidden;
+  background: #898989 url("/assets/wanted/paper-wide.webp") center / cover;
+  /* Name size: MADHAV's width; everything else in the name derives from it. */
+  --name: min(46vw, 76dvh);
+}
+.w-layer { position: absolute; max-width: none; }
+.w-center { display: flex; align-items: center; justify-content: center; }
+.w-rot { flex: none; position: relative; }
+.w-fill { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.w-cover { object-fit: cover; }
+.w-bottom { object-position: bottom; }
+.w-60 { opacity: 0.6; }
+.w-hard-light { mix-blend-mode: hard-light; }
+.w-overlay { mix-blend-mode: overlay; }
+.w-difference { mix-blend-mode: difference; }
+
+/* Cutouts: photo box (582 × 1030) pinned to the page's bottom-left. */
+/* Nudged left by 1% of its width (the photo's transparent left margin). Use `left`, not translate/transform:
+   those make a stacking context, which isolates the blend-mode layers from the paper and kills the negative effect. */
+.w-cutout { position: absolute; left: calc(94dvh * 582 / 1030 * -0.01); bottom: 0; height: 94dvh; aspect-ratio: 582 / 1030; }
+
+/* Name: centred stack. Words share one glyph scale; SINGH is set smaller, BHANOT larger, as in the Figma. */
+.w-name {
+  position: absolute; left: 50%; top: 44%; translate: -50% -50%;
+  display: flex; flex-direction: column; align-items: center;
+}
+.w-name img { display: block; height: auto; }
+.w-madhav { width: var(--name); }
+.w-singh { width: calc(var(--name) * 642 / 690 * 0.62); margin: -2.5% 0 -1.5% 18%; }
+.w-bhanot { width: calc(var(--name) * 572 / 690 * 1.12); }
+
+/* Role: bottom-right, arrow keeps its Figma offset from it. */
+.w-role { position: absolute; right: 2.5vw; bottom: 4dvh; width: min(44vw, 72dvh); aspect-ratio: 700.087 / 95.463; }
+
+.wanted .splash-back { z-index: 1; }
+
+/* Music player: same pill as Back, top-right. The embed is audio-only here, so it's kept invisible. */
+.w-player { position: absolute; top: 24px; right: 24px; z-index: 1; }
+.w-player .splash-back { position: static; }
+.w-player-video { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
+.w-eq { display: flex; align-items: flex-end; gap: 2px; width: 13px; height: 12px; }
+.w-eq i { width: 3px; height: 30%; background: currentColor; opacity: 0.5; }
+.w-eq.is-on i { opacity: 1; animation: eq 0.9s ease-in-out infinite alternate; }
+.w-eq.is-on i:nth-child(2) { animation-delay: -0.3s; }
+.w-eq.is-on i:nth-child(3) { animation-delay: -0.6s; }
+@keyframes eq { from { height: 25%; } to { height: 100%; } }
+
+/* Portrait / phones: name up top, role captioning the bottom-right, the whole cutout (blue silhouette included,
+   which reaches 1.39× the photo's width) in front of them from the bottom-left. */
+@media (orientation: portrait) {
+  .wanted { --name: 86vw; }
+  .w-name { top: 25%; }
+  .w-cutout { height: auto; width: 72vw; left: -0.72vw; }
+  .w-role { right: 4vw; bottom: 4dvh; width: 70vw; }
+  .wanted .splash-back { top: 16px; left: 16px; }
+  .w-player { top: 16px; right: 16px; }
+}
