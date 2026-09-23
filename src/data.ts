@@ -8,9 +8,9 @@ export const SOCIALS = [
 
 export const NAV = [
   { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
 ];
 
 export const STATS = [
