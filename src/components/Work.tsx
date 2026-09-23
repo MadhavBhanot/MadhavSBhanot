@@ -1,12 +1,25 @@
+import type { PointerEvent } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { FEATURED, PROJECTS, type Shot } from "../data";
 import { BrowserWindow } from "./BrowserWindow";
 import { SectionHeader } from "./SectionHeader";
 
+/** Ambient glow drifts toward the pointer (CSS transition does the easing). */
+const followGlow = (e: PointerEvent<HTMLDivElement>) => {
+  if (e.pointerType !== "mouse") return;
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--gx", `${((e.clientX - r.left) / r.width - 0.5) * 48}px`);
+  e.currentTarget.style.setProperty("--gy", `${((e.clientY - r.top) / r.height - 0.5) * 36}px`);
+};
+const resetGlow = (e: PointerEvent<HTMLDivElement>) => {
+  e.currentTarget.style.removeProperty("--gx");
+  e.currentTarget.style.removeProperty("--gy");
+};
+
 /** Thumbnail with the blurred-screenshot ambient glow behind a browser window. */
 function Thumbnail({ shot, index, size, win }: { shot: Shot; index: string; size: "lg" | "sm"; win: { left: number; top: number } }) {
   return (
-    <div className={`thumb thumb--${size}`}>
+    <div className={`thumb thumb--${size}`} onPointerMove={followGlow} onPointerLeave={resetGlow}>
       <img className="thumb-ambient" src={shot.ambient} alt="" />
       <div className="thumb-shade" />
       <span className="thumb-index" data-speed="0.92">{index}</span>
