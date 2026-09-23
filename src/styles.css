@@ -182,6 +182,8 @@ body::after {
   width: calc(560 * var(--u));
   aspect-ratio: 560 / 672;
   overflow: hidden;
+  translate: var(--px, 0) var(--py, 0);
+  transition: translate 1.1s var(--ease);
 }
 .hero-portrait img { width: 100%; height: 100%; object-fit: cover; }
 

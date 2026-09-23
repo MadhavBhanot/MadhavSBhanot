@@ -1,8 +1,21 @@
+import type { PointerEvent } from "react";
 import { ArrowDown, Download } from "lucide-react";
+
+/** Portrait drifts toward the pointer; CSS `translate` + transition does the easing. */
+const drift = (e: PointerEvent<HTMLElement>) => {
+  if (e.pointerType !== "mouse") return;
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--px", `${((e.clientX - r.left) / r.width - 0.5) * 28}px`);
+  e.currentTarget.style.setProperty("--py", `${((e.clientY - r.top) / r.height - 0.5) * 20}px`);
+};
+const settle = (e: PointerEvent<HTMLElement>) => {
+  e.currentTarget.style.removeProperty("--px");
+  e.currentTarget.style.removeProperty("--py");
+};
 
 export function Hero() {
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" onPointerMove={drift} onPointerLeave={settle}>
       <div className="hero-stage">
         <h1 className="hero-name" data-hero="name" aria-label="Madhav">MADHAV</h1>
         <div className="hero-portrait" data-hero="portrait">
