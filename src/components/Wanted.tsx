@@ -30,7 +30,7 @@ function Rotated({ style, w, h, iw, ih, rotate, src, className, imgClass }: {
 }
 
 /** "Fired Up" via YouTube's embed (the only licensed way to play it), driven with the IFrame API's postMessage protocol.
- *  Off by default: the embed isn't even loaded until the first press of play. */
+ *  Starts 3s after the poster opens (or on the first press of play, if sooner). */
 const YT = "https://www.youtube-nocookie.com";
 const VIDEO = "f2II8WkVti8";
 
@@ -40,6 +40,12 @@ function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
   const send = (func: string) => frame.current?.contentWindow?.postMessage(JSON.stringify({ event: "command", func, args: [] }), YT);
   const toggle = () => (loaded ? send(playing ? "pauseVideo" : "playVideo") : setLoaded(true));
+
+  // Kick in 3s after the poster opens (the five taps count as the user gesture browsers need for sound).
+  useEffect(() => {
+    const id = setTimeout(() => setLoaded(true), 3000);
+    return () => clearTimeout(id);
+  }, []);
 
   // Player reports its state (1 = playing) once we say we're listening.
   useEffect(() => {
