@@ -49,7 +49,7 @@ export function Hero() {
         </div>
 
         <div className="hero-pitch" data-hero="pitch">
-          <p>Software engineer — full-stack &amp; AI/LLM.<br />React, Node, Postgres, RAG pipelines.</p>
+          <p>AI full-stack engineer — LLM products end to end.<br />React, TypeScript, Node.js, Python, Postgres.</p>
           <div className="hero-actions">
             <a className="btn btn--ghost" href="/Madhav-Bhanot-Resume.pdf" download>
               Download CV <Download size={15} strokeWidth={1.8} aria-hidden />

@@ -259,6 +259,7 @@ body::after {
 .metric-label { font-size: 12px; letter-spacing: 0.08em; color: var(--text-65); margin-top: 2px; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag { padding: 6px 12px; border: 1px solid rgba(206, 192, 179, 0.25); border-radius: 999px; font: 500 12px/1.2 var(--sans); color: rgba(238, 235, 218, 0.75); }
+.featured-links { display: flex; flex-wrap: wrap; gap: 16px 32px; }
 .featured-link { display: inline-flex; align-items: center; gap: 12px; font: 500 15px/1 var(--sans); color: var(--accent); }
 
 .arrow-btn {
@@ -270,7 +271,7 @@ body::after {
   color: var(--bg);
   transition: background 0.4s var(--ease);
 }
-.featured:hover .arrow-btn, .work-card:hover .arrow-btn { background: var(--cream); }
+.featured-link:hover .arrow-btn, .work-card:hover .arrow-btn { background: var(--cream); }
 
 .thumb {
   position: relative;
@@ -452,7 +453,11 @@ html:has(.splash[open]) .cursor { visibility: hidden !important; }
     .hero-bottom { position: static; display: flex; flex-direction: column; gap: 28px; padding-bottom: 40px; }
   .hero-bottom > * { position: static !important; translate: none !important; }
   .hero-status-wrap { position: relative !important; left: auto; top: auto; align-self: flex-start; }
-  .thumb--lg .thumb-window { left: 6% !important; top: 9% !important; scale: 0.75; transform-origin: 0 0; }
+  /* Center and scale the inner .window: GSAP owns .thumb-window's transform and resets translate/scale on it. */
+  .thumb-window { left: 0 !important; right: 0; display: flex; justify-content: center; }
+  .thumb-window .window { flex-shrink: 0; transform-origin: top center; }
+  .thumb--lg .thumb-window { top: 8% !important; }
+  .thumb--lg .window { scale: 0.8; }
   .hero-pitch { align-items: flex-start; }
   .hero-pitch p { text-align: left; }
   .hero-rule { position: static; }
@@ -482,11 +487,10 @@ html:has(.splash[open]) .cursor { visibility: hidden !important; }
   .signoff { font-size: 10px; letter-spacing: 0.14em; gap: 16px; }
   .signoff > * { white-space: nowrap; }
 
-  /* Screenshots: scale down and center instead of clipping off the right edge. */
-  .thumb-window { left: 50% !important; translate: -50% 0; transform-origin: top center; }
-  .thumb--lg .thumb-window { left: 50% !important; top: 8% !important; scale: 0.5; transform-origin: top center; }
+  .thumb--lg .window { scale: 0.6; }
   .thumb--sm { height: 260px; }
-  .thumb--sm .thumb-window { top: 28px !important; scale: 0.82; }
+  .thumb--sm .thumb-window { top: 28px !important; }
+  .thumb--sm .window { scale: 0.82; }
   .thumb--sm .thumb-index { font-size: 150px; left: auto; right: 12px; top: auto; bottom: -24px; }
   .thumb--lg { height: 280px; min-height: 0; }
   .thumb--lg .thumb-index { font-size: 200px; left: auto; right: 12px; top: auto; bottom: -36px; }

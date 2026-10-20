@@ -47,8 +47,8 @@ export function Work() {
       <div className="work-grid">
         <div className="featured-wrap">
           <img src="/assets/doodle-runner.svg" alt="" className="doodle runner" data-draw />
-          <a className="card featured" href={f.href} target="_blank" rel="noreferrer" data-reveal>
-            <Thumbnail shot={f.shot} index={f.index} size="lg" win={{ left: 70, top: 52 }} />
+          <div className="card featured" data-reveal>
+            <Thumbnail shot={f.shot} index={f.index} size="lg" win={f.win} />
             <div className="featured-text">
               <span className="badge">{f.badge}</span>
               <h3 className="featured-title">{f.title}</h3>
@@ -62,9 +62,13 @@ export function Work() {
                 ))}
               </div>
               <ul className="tags">{f.tags.map((t) => <li key={t} className="tag">{t}</li>)}</ul>
-              <span className="featured-link"><ArrowButton />{f.linkLabel}</span>
+              <div className="featured-links">
+                {f.links.map((l) => (
+                  <a key={l.href} className="featured-link" href={l.href} target="_blank" rel="noreferrer"><ArrowButton />{l.label}</a>
+                ))}
+              </div>
             </div>
-          </a>
+          </div>
         </div>
 
         <div className="work-row">

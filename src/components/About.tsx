@@ -20,9 +20,9 @@ export function About() {
         </p>
         <div className="about-details">
           <p className="body-text" data-reveal>
-            B.Tech Computer Science at Bharati Vidyapeeth, Pune — class of ’26, CGPA 8.32. Previously built React
-            dashboards for LLM workflow systems at Innate AI (Helsinki), and shipped full-stack products at Krishlabs
-            (Bangalore).
+            B.Tech Computer Science at Bharati Vidyapeeth, Pune — class of ’26, CGPA 8.32. Built agent UIs, real-time
+            Node.js backends and Python LLM-eval pipelines at Innate AI (Helsinki), and an Instagram-style social app
+            end to end at Krishlabs (Bangalore).
           </p>
           <div className="stats">
             {STATS.map((s) => (

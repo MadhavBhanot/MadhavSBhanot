@@ -16,14 +16,14 @@ export const NAV = [
 export const STATS = [
   { value: 8.32, decimals: 2, suffix: "", label: "CGPA, B.Tech CSE" },
   { value: 3, decimals: 0, suffix: "rd", label: "Unstop Hackathon, 200+ participants" },
-  { value: 65, decimals: 0, suffix: "k★", label: "Repo I contribute to — uptime-kuma" },
+  { value: 92, decimals: 0, suffix: "k★", label: "Repo I contribute to — uptime-kuma" },
 ];
 
 export const SKILLS = [
-  { group: "Frontend", items: ["React", "Next.js", "React Native (Expo)", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion"] },
-  { group: "Backend & Data", items: ["Node.js", "Express.js", "WebSockets", "Socket.IO", "Prisma", "PostgreSQL", "MongoDB", "Redis", "Supabase", "Firebase"] },
-  { group: "Cloud & Tools", items: ["AWS EC2 / S3", "Docker", "Git", "CI/CD", "Jest", "Postman", "Vercel", "Jira"] },
-  { group: "AI & Workflow", items: ["OpenAI API", "Anthropic API", "RAG", "Prompt Engineering", "Apache Airflow", "Celery", "ETL Pipelines"] },
+  { group: "Frontend", items: ["React 19", "TypeScript", "Next.js (SSR/SSG)", "React Native (Expo)", "Vue.js", "Tailwind CSS", "Framer Motion", "IndexedDB"] },
+  { group: "Backend", items: ["Node.js", "Express.js", "REST", "WebSockets", "Socket.IO", "SSE", "Webhooks", "Pub/Sub", "RBAC", "OAuth 2.0", "JWT", "Prisma", "Mongoose"] },
+  { group: "AI & Data", items: ["RAG", "AI Agents (tool calling)", "pgvector Hybrid Search", "LLM-as-Judge Evals", "Prompt-Injection Defense", "Vercel AI SDK", "OpenAI / Anthropic", "Gemini / Groq", "LangSmith", "Airflow", "Celery"] },
+  { group: "Databases, Cloud & Tools", items: ["PostgreSQL", "Supabase", "MongoDB", "Docker", "AWS EC2 / S3", "Vercel", "Render", "GitHub Actions", "Python", "Java", "SQL", "Jest", "Vitest"] },
 ];
 
 /** `crop` reproduces the Figma image crop: img box as % of the screenshot slot. `ambient` is a tiny pre-blurred copy of that crop. */
@@ -31,19 +31,23 @@ export type Shot = { src: string; ambient: string; url: string; width: number; h
 
 export const FEATURED = {
   index: "01",
-  title: "RunAway",
-  badge: "★  FEATURED — 01 / 2026",
-  href: "https://runaway-jade.vercel.app/",
-  linkLabel: "runaway-jade.vercel.app",
-  description:
-    "A generative sketchbook canvas paired with an Apple-esque glass music player — procedural gaits, graphite & watercolor textures and a Web Audio synth, at a steady 60 FPS with zero dependencies.",
-  metrics: [
-    { value: 60, suffix: "", label: "FPS, zero deps" },
-    { value: 30, suffix: "+", label: "Daily users" },
-    { value: 48, suffix: "+", label: "Unique visitors" },
+  title: "Gaminai",
+  badge: "★  FEATURED — 01 / 2026 – PRESENT",
+  links: [
+    { label: "Live", href: "https://gaminai-alpha.vercel.app/" },
+    { label: "GitHub", href: "https://github.com/MadhavBhanot/Gamanai" },
+    { label: "Evals", href: "https://gaminai-alpha.vercel.app/evals" },
   ],
-  tags: ["HTML5 Canvas", "Web Audio API", "JavaScript"],
-  shot: { src: "/assets/runaway.webp", ambient: "/assets/ambient-runaway.webp", url: "runaway-jade.vercel.app", width: 580, height: 475, crop: { w: 201.26, h: 138.04, l: -25.91, t: -2.3 } } as Shot,
+  description:
+    "A full-stack RAG research assistant that streams cited answers over SSE — two-stage hybrid retrieval (Postgres full-text + pgvector, RRF), an agentic deep-research mode with live tool-calling steps, Gemini → Groq fallback, RLS-locked Supabase data and an admin ops dashboard. Every change is scored by an LLM-as-judge eval harness, gated in CI.",
+  metrics: [
+    { value: 99, suffix: "%", label: "Answers cite a source" },
+    { value: 98, suffix: "%+", label: "Citation precision" },
+    { value: 91, suffix: "%", label: "URL-question accuracy" },
+  ],
+  tags: ["React", "TypeScript", "Express", "PostgreSQL + pgvector", "Vercel AI SDK"],
+  shot: { src: "/assets/gaminai.webp", ambient: "/assets/ambient-gaminai.webp", url: "gaminai-alpha.vercel.app", width: 340, height: 392, crop: { w: 100, h: 100, l: 0, t: 0 } } as Shot,
+  win: { left: 190, top: 40 },
 };
 
 export const PROJECTS: {
@@ -52,34 +56,34 @@ export const PROJECTS: {
 }[] = [
   {
     index: "02", title: "ProScape — Focus", meta: "02 — 2026", href: "https://pro-scape.vercel.app/",
-    description: "Offline-first React 19 workspace — IndexedDB with a 600ms debounced sync keeps state updates under 100ms; Express cache layer for YouTube metadata.",
-    stack: "React 19 · IndexedDB · Express · OAuth 2.0",
+    description: "Offline-first React 19 workspace — playlists and media cached in IndexedDB behind a 600ms debounced write buffer; Express 5 backend with Google/GitHub OAuth and a cache layer that cut YouTube API latency by 50%.",
+    stack: "React 19 · IndexedDB · Express 5 · OAuth 2.0",
     shot: { src: "/assets/proscape.webp", ambient: "/assets/ambient-proscape.webp", url: "pro-scape.vercel.app", width: 350, height: 200, crop: { w: 220.69, h: 216.87, l: -17.24, t: -15.66 } },
     win: { left: 30, top: 40 },
   },
   {
-    index: "03", title: "Gaminai", meta: "03 — 2024–25", href: "https://drive.google.com/file/d/1aGqOn8-Oua4PVAIz9kcQWp3hQe9UNknT/view",
-    description: "Full-stack AI research assistant — RAG pipeline over OpenAI & Anthropic with idempotent memory, authenticated history and live answer streaming.",
-    stack: "React · Express · Postgres · Prisma · RAG",
-    shot: { src: "/assets/gaminai.webp", ambient: "/assets/ambient-gaminai.webp", url: "gaminai — demo", width: 230, height: 300, crop: { w: 371.81, h: 164.74, l: -94.27, t: -5.27 } },
-    win: { left: 40, top: 36 },
+    index: "03", title: "RunAway", meta: "03 — 2026", href: "https://runaway-jade.vercel.app/",
+    description: "Zero-dependency animated sketchbook — procedural scenery, a forward-kinematics stickman with three gaits and a Web Audio rain synth; batched rendering cut draw calls 98%+. 358 unit tests.",
+    stack: "Canvas 2D · Web Audio API · Vanilla JS · Node.js",
+    shot: { src: "/assets/runaway.webp", ambient: "/assets/ambient-runaway.webp", url: "runaway-jade.vercel.app", width: 330, height: 270, crop: { w: 201.26, h: 138.04, l: -25.91, t: -2.3 } },
+    win: { left: 30, top: 36 },
   },
   {
-    index: "04", title: "Movie Recommender", meta: "04 — 2023–24", href: "https://madsreccoms.netlify.app/",
+    index: "04", title: "Movie Recommender", meta: "04 — 2025", href: "https://madsreccoms.netlify.app/",
     description: "Collaborative-filtering movie recommendations powered by the TMDB API, with an interactive React front end.",
     stack: "React · Python · TMDB API",
-    shot: { src: "/assets/movie.webp", ambient: "/assets/ambient-movie.webp", url: "madsreccoms.netlify.app", width: 320, height: 281, crop: { w: 235.64, h: 150.75, l: -38.88, t: -6.53 } },
-    win: { left: 30, top: 36 },
+    shot: { src: "/assets/movie.webp", ambient: "/assets/ambient-movie.webp", url: "madsreccoms.netlify.app", width: 340, height: 230, crop: { w: 100, h: 100, l: 0, t: 0 } },
+    win: { left: 30, top: 40 },
   },
 ];
 
 export const EXPERIENCE = [
-  { when: "2026", title: "Open Source Contributor", org: "uptime-kuma (65k★) · kana-dojo",
-    text: "Dynamic gRPC port binding (fix/grpc-ports) and URL-synced dashboard filters (+241 lines) in uptime-kuma; a visual theme for kana-dojo — across 16+ code-review threads." },
-  { when: "JUL — OCT 2025", title: "React Developer", org: "Innate AI · Helsinki (Remote)",
-    text: "React + TypeScript dashboards (Artifact, Signal, Context Handler) for LLM workflow systems. WebSocket updates 300ms faster, Airflow + Celery at 1K+ batch jobs/worker, OpenAI integration and prompt engineering." },
-  { when: "NOV 2024 — APR 2025", title: "Jr Full-Stack Developer", org: "Krishlabs · Bangalore",
-    text: "Next.js + Express marketing platform: +25% engagement, +40% sign-ups. Expo React Native social app with Socket.IO — 60% lower latency. 15+ REST endpoints on AWS EC2/S3 at 99.8% uptime." },
-  { when: "2024", title: "Hackathon — 3rd Place", org: "Unstop · 200+ participants", star: true,
+  { when: "AUG 2026 — PRESENT", title: "Open Source Contributor", org: "uptime-kuma (92k★) · kana-dojo (3.6k★)",
+    text: "uptime-kuma PR #7732 (in review): a Vue.js feature that syncs monitor filters with URL query params so filtered views persist and can be shared — +336 lines including a 206-line test spec. kana-dojo PR #28654 (merged): a new community UI theme." },
+  { when: "JUL — OCT 2025", title: "Full-Stack / React Developer", org: "Innate AI · Helsinki (Remote)",
+    text: "Built the React + TypeScript interface of an LLM research platform for VC advisory teams — agent \"thinking\" view, live sources and editable report artifacts. Wrote the Node.js WebSocket layer and a real-time Signals pipeline (Airflow → webhooks → pub/sub), ~300ms faster than polling; multi-tenant RBAC over OAuth, Postgres migrations in Docker, document parsers and Airflow + Celery ingestion (1,000+ jobs/worker) for RAG, and an LLM-as-judge eval harness in LangSmith." },
+  { when: "NOV 2024 — APR 2025", title: "Junior Full-Stack Developer", org: "Krishlabs · Bangalore",
+    text: "Built an Instagram-style social app end to end — Expo React Native, Node.js/Express, MongoDB, 50+ REST endpoints: reels, stories, in-app photo editing, nested comments, an interest-ranked feed with cold-start fallback, and Socket.IO 1:1 and group chat with push notifications. Direct-to-S3 presigned uploads, a hardened EC2 API (OAuth, JWT refresh, rate limiting, injection sanitization) and the Next.js landing page." },
+  { when: "2024", title: "Hackathon — 3rd Place", org: "Dev with AI Hackathon · Unstop · 200+ participants", star: true,
     text: "Built a React Native safety application end-to-end. Also certified in JavaScript & Java by IIT Bombay (90%)." },
 ];
