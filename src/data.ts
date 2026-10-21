@@ -22,7 +22,7 @@ export const STATS = [
 export const SKILLS = [
   { group: "Frontend", items: ["React 19", "TypeScript", "Next.js (SSR/SSG)", "React Native (Expo)", "Vue.js", "Tailwind CSS", "Framer Motion", "IndexedDB"] },
   { group: "Backend", items: ["Node.js", "Express.js", "REST", "WebSockets", "Socket.IO", "SSE", "Webhooks", "Pub/Sub", "RBAC", "OAuth 2.0", "JWT", "Prisma", "Mongoose"] },
-  { group: "AI & Data", items: ["RAG", "AI Agents (tool calling)", "pgvector Hybrid Search", "LLM-as-Judge Evals", "Prompt-Injection Defense", "Vercel AI SDK", "OpenAI / Anthropic", "Gemini / Groq", "LangSmith", "Airflow", "Celery"] },
+  { group: "AI & Data", items: ["RAG", "AI Agents (tool calling)", "pgvector Hybrid Search", "LLM-as-Judge Evals", "Prompt-Injection Defense", "Vercel AI SDK", "MCP", "Langfuse", "OpenAI / Gemini / Groq", "LangSmith", "Airflow", "Celery"] },
   { group: "Databases, Cloud & Tools", items: ["PostgreSQL", "Supabase", "MongoDB", "Docker", "AWS EC2 / S3", "Vercel", "Render", "GitHub Actions", "Python", "Java", "SQL", "Jest", "Vitest"] },
 ];
 
@@ -39,13 +39,13 @@ export const FEATURED = {
     { label: "Evals", href: "https://gaminai-alpha.vercel.app/evals" },
   ],
   description:
-    "A full-stack RAG research assistant that streams cited answers over SSE — two-stage hybrid retrieval (Postgres full-text + pgvector, RRF), an agentic deep-research mode with live tool-calling steps, Gemini → Groq fallback, RLS-locked Supabase data and an admin ops dashboard. Every change is scored by an LLM-as-judge eval harness, gated in CI.",
+    "A full-stack RAG research assistant that streams cited answers over SSE — a 4-provider LLM fallback chain (Gemini, Gemma, NVIDIA, Groq), two-stage hybrid retrieval with Jina rerank, a pgvector semantic cache, Langfuse tracing and an MCP server for Claude and Cursor. A deep-research agent mode plans multi-hop questions with tool calls, and every change is scored by an LLM-as-judge eval harness gated in CI.",
   metrics: [
     { value: 99, suffix: "%", label: "Answers cite a source" },
-    { value: 98, suffix: "%+", label: "Citation precision" },
-    { value: 91, suffix: "%", label: "URL-question accuracy" },
+    { value: 100, suffix: "%", label: "Multi-hop faithfulness" },
+    { value: 10, suffix: "/10", label: "Injection canaries resisted" },
   ],
-  tags: ["React", "TypeScript", "Express", "PostgreSQL + pgvector", "Vercel AI SDK"],
+  tags: ["React", "TypeScript", "Express", "PostgreSQL + pgvector", "Vercel AI SDK", "MCP"],
   shot: { src: "/assets/gaminai.webp", ambient: "/assets/ambient-gaminai.webp", url: "gaminai-alpha.vercel.app", width: 340, height: 392, crop: { w: 100, h: 100, l: 0, t: 0 } } as Shot,
   win: { left: 190, top: 40 },
 };
